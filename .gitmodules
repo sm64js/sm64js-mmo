@@ -1,0 +1,11 @@
+[submodule "server"]
+	path = server
+	url = https://github.com/sm64js/sm64js-mmo-server.git
+[submodule "client"]
+	path = client
+	url = https://github.com/sm64js/sm64js.git
+	branch = MMO
+[submodule "gameMaster"]
+	path = gameMaster
+	url = https://github.com/sm64js/sm64js.git
+	branch = MMO-gameMaster
