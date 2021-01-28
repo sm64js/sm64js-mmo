@@ -1,0 +1,21 @@
+on: 
+  push:
+    branches: 
+      - main
+
+name: Docker Publish
+
+jobs:
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+
+      - name: Deploy to Docker Hub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: bash publish.sh
+        continue-on-error: true
