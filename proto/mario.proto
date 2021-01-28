@@ -22,8 +22,6 @@ message Sm64JsMsg {
 		SkinMsg skin_msg = 10;
 		PlayerNameMsg player_name_msg = 11;
 		AnnouncementMsg announcement_msg = 12;
-		/*ControllerMsg controller_msg = 6;
-		ControllerListMsg controller_list_msg = 7;*/
 	}
 }
 
@@ -38,10 +36,6 @@ message ConnectedMsg {
 
 message PingMsg {
 	float time = 1;
-}
-
-message ControllerListMsg {
-	repeated ControllerMsg controller = 1;
 }
 
 message FlagMsg {
@@ -96,7 +90,7 @@ message ControllerMsg {
 }
 
 message PlayerListsMsg {
-	repeated ValidPlayersMsg room = 1;
+	repeated ValidPlayersMsg game = 1;
 }
 
 message ValidPlayersMsg {
