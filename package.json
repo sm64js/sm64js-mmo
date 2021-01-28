@@ -1,0 +1,28 @@
+{
+  "name": "sm64js-mmo",
+  "version": "0.1.0",
+  "description": "Super Repository for sm64js mmo server and client files",
+  "main": "0",
+  "scripts": {
+    "updateModules": "git submodule update --init",
+    "install": "cd client && npm install & cd server && npm install & cd gameMaster && npm install",
+    "startServer": "cd server && npm run serve",
+    "startWebpack": "cd client && npm run start",
+    "startDevSuite": "cd server && npm run serve & cd client && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sm64js/sm64js-mmo.git"
+  },
+  "keywords": [
+    "sm64js",
+    "sm64",
+    "mario"
+  ],
+  "author": "Snuffy",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/sm64js/sm64js-mmo/issues"
+  },
+  "homepage": "https://github.com/sm64js/sm64js-mmo#readme"
+}
