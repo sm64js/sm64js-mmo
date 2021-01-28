@@ -9,7 +9,8 @@
     "installAll": "cd client && npm install & cd server && npm install & cd gameMaster && npm install",
     "startServer": "cd server && npm run serve",
     "startWebpack": "cd client && npm run start",
-    "startDevSuite": "cd server && npm run serve & cd client && npm run start"
+    "startDevSuite": "cd server && npm run serve & cd client && npm run start",
+    "protoc": "protoc --js_out=import_style=commonjs,binary:. proto/mario.proto && cp proto/mario_pb.js client/proto/ && cp proto/mario_pb.js gameMaster/proto/ && cp proto/mario_pb.js server/proto/"
   },
   "repository": {
     "type": "git",
