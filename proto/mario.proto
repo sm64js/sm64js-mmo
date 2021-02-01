@@ -40,6 +40,7 @@ message InitializationMsg {
 
 message AccessCodeMsg {
 	string access_code = 1;
+	string type = 2;
 }
 
 message AuthorizedUserMsg {
