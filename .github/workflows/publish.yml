@@ -7,13 +7,22 @@ name: Docker Publish
 
 jobs:
   publish-server:
-    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         name: Checkout
         with:
           submodules: true
+
+      - name: Check Git Diff
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.event.after }}
+        run: |
+          if [[ $(git diff --name-only $BEFORE $AFTER server) ]]; then \
+          else \
+              exit 1 \
+          fi
 
       - name: Dump GitHub context
         env:
