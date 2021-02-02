@@ -6,6 +6,7 @@ echo "using git hash $GIT_HASH"
 
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
+cd server
 docker pull sm64js/sm64js-build || true
 docker build --cache-from=sm64js/sm64js-build -t sm64js/sm64js-build:latest -f ./rust-server/DockerfileBuild .
 docker push sm64js/sm64js-build:latest
