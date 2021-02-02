@@ -40,6 +40,7 @@ jobs:
           if [[ $(git diff --name-only $BEFORE $AFTER client) ]]; then
             echo "::set-output name=publish-client::true"
           fi
+
   publish-server:
     needs: prepare
     if: ${{ needs.prepare.outputs.publish-server }}
@@ -50,14 +51,8 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            /home/runner/.cache/sccache
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Setup cache
-        run: |
-          mkdir sccache
-          sudo mount -o bind /home/runner/.cache/sccache sccache
 
       - name: Deploy to Docker Hub
         env:
@@ -65,9 +60,26 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: bash publish-server.sh
 
+  publish-client:
+    needs: prepare
+    if: ${{ needs.prepare.outputs.publish-client }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+
+      - name: Deploy to Docker Hub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: bash publish.sh
+
   publish:
-    if: always()
-    needs: publish-server
+    needs: [prepare, publish-server, publish-client]
+    if: |
+      (${{ needs.publish-server.result == 'success' }} || ${{ needs.publish-server.result == 'skipped' }}) &&
+      (${{ needs.publish-client.result == 'success' }} || ${{ needs.publish-client.result == 'skipped' }}) &&
+      (${{ needs.prepare.outputs.publish-server }} || ${{ needs.prepare.outputs.publish-client }})
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
