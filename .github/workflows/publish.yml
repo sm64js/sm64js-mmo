@@ -9,17 +9,21 @@ jobs:
   publish-server:
     runs-on: ubuntu-latest
     steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt-get install -y jq
+
       - name: Check Clone Depth
         env:
           COMMITS: ${{ toJSON(github.event.commits) }}
         run: |
-          echo $COMMITS
+          export FETCH_DEPTH=$(echo $COMMITS | jq length)
 
       - uses: actions/checkout@v2
         name: Checkout
         with:
           submodules: true
-          fetch-depth: 10
+          fetch-depth: $FETCH_DEPTH
 
       - name: Check Git Diff
         env:
