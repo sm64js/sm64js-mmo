@@ -9,10 +9,19 @@ jobs:
   publish-server:
     runs-on: ubuntu-latest
     steps:
+      - name: Check Clone Depth
+        env:
+          COMMITS: ${{ github.event.commits }}
+          COMMITS_JSON: ${{ fromJSON(github.event.commits) }}
+        run: |
+          echo $COMMITS
+          echo $COMMITS_JSON
+
       - uses: actions/checkout@v2
         name: Checkout
         with:
           submodules: true
+          fetch-depth: 10
 
       - name: Check Git Diff
         env:
