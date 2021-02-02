@@ -20,6 +20,11 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
 
+      - name: Dump event JSON
+        env:
+          EVENT_JSON_FILENAME: ${{ github.event_path }}
+        run: cat "$EVENT_JSON_FILENAME"
+
       # - uses: actions/cache@v2
       #   with:
       #     path: |
