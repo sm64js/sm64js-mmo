@@ -63,7 +63,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: bash publish-server.sh
+        run: bash server/publish.sh
 
       - name: Set output to success
         id: set-output
@@ -84,7 +84,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: bash publish-client.sh
+        run: bash client/publish.sh
 
       - name: Set output to success
         id: set-output
