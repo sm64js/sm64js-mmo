@@ -48,6 +48,9 @@ jobs:
     outputs:
       success: ${{ steps.set-output.outputs.success }}
     steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+
       - uses: actions/cache@v2
         with:
           path: |
@@ -81,7 +84,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: bash publish.sh
+        run: bash publish-client.sh
 
       - name: Set output to success
         id: set-output
