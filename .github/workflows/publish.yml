@@ -45,6 +45,8 @@ jobs:
     needs: prepare
     if: ${{ needs.prepare.outputs.publish-server }}
     runs-on: ubuntu-latest
+    outputs:
+      success: ${{ steps.set-output.outputs.success }}
     steps:
       - uses: actions/cache@v2
         with:
@@ -60,10 +62,17 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: bash publish-server.sh
 
+      - name: Set output to success
+        id: set-output
+        run: |
+          echo "::set-output name=success::true"
+
   publish-client:
     needs: prepare
     if: ${{ needs.prepare.outputs.publish-client }}
     runs-on: ubuntu-latest
+    outputs:
+      success: ${{ steps.set-output.outputs.success }}
     steps:
       - uses: actions/checkout@v2
         name: Checkout
@@ -74,12 +83,16 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: bash publish.sh
 
+      - name: Set output to success
+        id: set-output
+        run: |
+          echo "::set-output name=success::true"
+
   publish:
     needs: [prepare, publish-server, publish-client]
     if: |
-      (${{ needs.publish-server.result == 'success' }} || ${{ needs.publish-server.result == 'skipped' }}) &&
-      (${{ needs.publish-client.result == 'success' }} || ${{ needs.publish-client.result == 'skipped' }}) &&
-      (${{ needs.prepare.outputs.publish-server }} || ${{ needs.prepare.outputs.publish-client }})
+      (${{ needs.prepare.outputs.publish-server }} && ${{ needs.publish-server.outputs.success }}) ||
+      (${{ needs.prepare.outputs.publish-client }} && ${{ needs.publish-client.outputs.success }})
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
