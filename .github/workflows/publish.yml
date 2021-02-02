@@ -50,6 +50,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: Checkout
+        with:
+          submodules: true
 
       - uses: actions/cache@v2
         with:
@@ -79,6 +81,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: Checkout
+        with:
+          submodules: true
 
       - name: Deploy to Docker Hub
         env:
