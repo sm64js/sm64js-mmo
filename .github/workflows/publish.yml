@@ -11,11 +11,9 @@ jobs:
     steps:
       - name: Check Clone Depth
         env:
-          COMMITS: ${{ github.event.commits }}
-          # COMMITS_JSON: ${{ fromJSON(github.event.commits) }}
+          COMMITS: ${{ toJSON(github.event.commits) }}
         run: |
           echo $COMMITS
-          # echo $COMMITS_JSON
 
       - uses: actions/checkout@v2
         name: Checkout
