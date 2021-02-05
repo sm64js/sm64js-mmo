@@ -46,6 +46,7 @@ message AccessCodeMsg {
 message AuthorizedUserMsg {
 	string username = 1;
 	uint32 status = 2;
+	string message = 3;
 }
 
 message JoinGameMsg {
