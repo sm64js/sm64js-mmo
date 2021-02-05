@@ -10,3 +10,7 @@
 	path = gameMaster
 	url = https://github.com/sm64js/sm64js.git
 	branch = MMO-gameMaster
+[submodule "adminPanel"]
+	path = adminPanel
+	url = https://github.com/sm64js/sm64js-admin.git
+	branch = main

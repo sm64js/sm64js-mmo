@@ -6,7 +6,7 @@
   "scripts": {
     "updateModules": "git submodule update --init",
     "checkoutModules": "git submodule foreach 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch)'",
-    "installAll": "cd client && npm install & cd server && npm install & cd gameMaster && npm install",
+    "installAll": "cd client && npm install & cd server && npm install & cd gameMaster && npm install & cd adminPanel && npm install",
     "startServer": "cd server && npm run serve",
     "startWebpack": "cd client && npm run start",
     "startDevSuite": "cd server && npm run serve & cd client && npm run start",
