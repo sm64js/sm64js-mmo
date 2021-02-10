@@ -115,7 +115,7 @@ message ControllerMsg {
 	float stickY = 2;
 	float stickMag = 3;
 	uint32 buttonDown = 4;
-	uint32 buttonPressed = 5;
+	uint32 taunt = 5;
 	sint32 cameraYaw = 6;
 	uint32 socketID = 7;
 }
