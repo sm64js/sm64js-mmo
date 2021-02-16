@@ -50,10 +50,10 @@ jobs:
             echo "::set-output name=publish-client::true"
           fi
           GIT_LOG=$(git log --pretty=format:"%s %b" $BEFORE..$AFTER)
-          if [ $GIT_LOG ?? 'publish-server' ]
+          if [[ $GIT_LOG == *'publish-server'* ]]; then
             echo "::set-output name=publish-server::true"
           fi
-          if [ $GIT_LOG ?? 'publish-client' ]
+          if [[ $GIT_LOG == *'publish-client'* ]]; then
             echo "::set-output name=publish-client::true"
           fi
 
