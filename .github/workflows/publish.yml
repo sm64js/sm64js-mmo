@@ -11,23 +11,29 @@ jobs:
     outputs:
       publish-server: ${{ steps.set-output.outputs.publish-server }}
       publish-client: ${{ steps.set-output.outputs.publish-client }}
+      fetch-depth: ${{ steps.set-depth.outputs.fetch-depth }}
     steps:
       - name: Install Dependencies
         run: |
           sudo apt-get install -y jq
 
       - name: Check Clone Depth
+        id: set-depth
         env:
           COMMITS: ${{ toJSON(github.event.commits) }}
         run: |
-          export FETCH_DEPTH=$(echo $COMMITS | jq length)
+          echo "::set-output name=fetch-depth::$(echo $COMMITS | jq length)"
 
       - uses: actions/checkout@v2
         name: Checkout
+        env:
+          FETCH_DEPTH: ${{ steps.set-depth.outputs.fetch-depth }}
         with:
           fetch-depth: $FETCH_DEPTH
 
       - name: Checkout submodules
+        env:
+          FETCH_DEPTH: ${{ steps.set-depth.outputs.fetch-depth }}
         run: |
           git submodule update --init --depth $FETCH_DEPTH -- client server
 
@@ -58,14 +64,11 @@ jobs:
     outputs:
       success: ${{ steps.set-output.outputs.success }}
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout
-        with:
-          fetch-depth: $FETCH_DEPTH
-
-      - name: Checkout submodules
+      - name: Checkout submodule
+        env:
+          FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
         run: |
-          git submodule update --init --depth $FETCH_DEPTH -- client server
+          git submodule update --init --depth $FETCH_DEPTH -- server
 
       - uses: actions/cache@v2
         with:
@@ -95,14 +98,11 @@ jobs:
     outputs:
       success: ${{ steps.set-output.outputs.success }}
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout
-        with:
-          fetch-depth: $FETCH_DEPTH
-
-      - name: Checkout submodules
+      - name: Checkout submodule
+        env:
+          FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
         run: |
-          git submodule update --init --depth $FETCH_DEPTH -- client server
+          git submodule update --init --depth $FETCH_DEPTH -- client
 
       - name: Deploy to Docker Hub
         env:
