@@ -25,10 +25,13 @@ jobs:
       - uses: actions/checkout@v2
         name: Checkout
         with:
-          submodules: true
           fetch-depth: $FETCH_DEPTH
 
-      - name: Check Git Diff
+      - name: Checkout submodules
+        run: |
+          git submodule update --init --depth $FETCH_DEPTH -- client server
+
+      - name: Check Git Diff & Log
         id: set-output
         env:
           BEFORE: ${{ github.event.before }}
@@ -38,6 +41,13 @@ jobs:
             echo "::set-output name=publish-server::true"
           fi
           if [[ $(git diff --name-only $BEFORE $AFTER client) ]]; then
+            echo "::set-output name=publish-client::true"
+          fi
+          $GIT_LOG=$(git log --pretty=format:"%s %b" $BEFORE..$AFTER)
+          if [ $GIT_LOG ?? 'publish-server' ]
+            echo "::set-output name=publish-server::true"
+          fi
+          if [ $GIT_LOG ?? 'publish-client' ]
             echo "::set-output name=publish-client::true"
           fi
 
@@ -51,7 +61,11 @@ jobs:
       - uses: actions/checkout@v2
         name: Checkout
         with:
-          submodules: true
+          fetch-depth: $FETCH_DEPTH
+
+      - name: Checkout submodules
+        run: |
+          git submodule update --init --depth $FETCH_DEPTH -- client server
 
       - uses: actions/cache@v2
         with:
@@ -84,7 +98,11 @@ jobs:
       - uses: actions/checkout@v2
         name: Checkout
         with:
-          submodules: true
+          fetch-depth: $FETCH_DEPTH
+
+      - name: Checkout submodules
+        run: |
+          git submodule update --init --depth $FETCH_DEPTH -- client server
 
       - name: Deploy to Docker Hub
         env:
