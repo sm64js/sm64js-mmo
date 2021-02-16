@@ -64,6 +64,13 @@ jobs:
     outputs:
       success: ${{ steps.set-output.outputs.success }}
     steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+        env:
+          FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
+        with:
+          fetch-depth: $FETCH_DEPTH
+
       - name: Checkout submodule
         env:
           FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
@@ -98,6 +105,13 @@ jobs:
     outputs:
       success: ${{ steps.set-output.outputs.success }}
     steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+        env:
+          FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
+        with:
+          fetch-depth: $FETCH_DEPTH
+
       - name: Checkout submodule
         env:
           FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
