@@ -11,15 +11,16 @@ message RootMsg {
 message Sm64JsMsg {
 	oneof message {
 		InitializationMsg initialization_msg = 1;
-		MarioListMsg list_msg = 2;
-		PingMsg ping_msg = 3;
-		MarioMsg mario_msg = 4;
-		PlayerListsMsg player_lists_msg = 5;
-		AttackMsg attack_msg = 6;
-		GrabFlagMsg grab_msg = 7;
-		ChatMsg chat_msg = 8;
-		SkinMsg skin_msg = 9;
-		AnnouncementMsg announcement_msg = 10;  // TODO merge into ChatMsg
+		ControllerMsg controller_msg = 2;
+		MarioListMsg list_msg = 3;
+		PingMsg ping_msg = 4;
+		MarioMsg mario_msg = 5;
+		PlayerListsMsg player_lists_msg = 6;
+		AttackMsg attack_msg = 7;
+		GrabFlagMsg grab_msg = 8;
+		ChatMsg chat_msg = 9;
+		SkinMsg skin_msg = 10;
+		AnnouncementMsg announcement_msg = 11;  // TODO merge into ChatMsg
 	}
 }
 
@@ -115,9 +116,10 @@ message ControllerMsg {
 	float stickY = 2;
 	float stickMag = 3;
 	uint32 buttonDown = 4;
-	uint32 taunt = 5;
-	sint32 cameraYaw = 6;
-	uint32 socketID = 7;
+	uint32 buttonPressed = 5;
+	uint32 taunt = 6;
+	sint32 cameraYaw = 7;
+	uint32 socketID = 8;
 }
 
 message PlayerListsMsg {

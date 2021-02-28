@@ -759,7 +759,7 @@ proto.sm64js.RootMsg.prototype.hasCompressedSm64jsMsg = function() {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.sm64js.Sm64JsMsg.oneofGroups_ = [[1,2,3,4,5,6,7,8,9,10]];
+proto.sm64js.Sm64JsMsg.oneofGroups_ = [[1,2,3,4,5,6,7,8,9,10,11]];
 
 /**
  * @enum {number}
@@ -767,15 +767,16 @@ proto.sm64js.Sm64JsMsg.oneofGroups_ = [[1,2,3,4,5,6,7,8,9,10]];
 proto.sm64js.Sm64JsMsg.MessageCase = {
   MESSAGE_NOT_SET: 0,
   INITIALIZATION_MSG: 1,
-  LIST_MSG: 2,
-  PING_MSG: 3,
-  MARIO_MSG: 4,
-  PLAYER_LISTS_MSG: 5,
-  ATTACK_MSG: 6,
-  GRAB_MSG: 7,
-  CHAT_MSG: 8,
-  SKIN_MSG: 9,
-  ANNOUNCEMENT_MSG: 10
+  CONTROLLER_MSG: 2,
+  LIST_MSG: 3,
+  PING_MSG: 4,
+  MARIO_MSG: 5,
+  PLAYER_LISTS_MSG: 6,
+  ATTACK_MSG: 7,
+  GRAB_MSG: 8,
+  CHAT_MSG: 9,
+  SKIN_MSG: 10,
+  ANNOUNCEMENT_MSG: 11
 };
 
 /**
@@ -817,6 +818,7 @@ proto.sm64js.Sm64JsMsg.prototype.toObject = function(opt_includeInstance) {
 proto.sm64js.Sm64JsMsg.toObject = function(includeInstance, msg) {
   var f, obj = {
     initializationMsg: (f = msg.getInitializationMsg()) && proto.sm64js.InitializationMsg.toObject(includeInstance, f),
+    controllerMsg: (f = msg.getControllerMsg()) && proto.sm64js.ControllerMsg.toObject(includeInstance, f),
     listMsg: (f = msg.getListMsg()) && proto.sm64js.MarioListMsg.toObject(includeInstance, f),
     pingMsg: (f = msg.getPingMsg()) && proto.sm64js.PingMsg.toObject(includeInstance, f),
     marioMsg: (f = msg.getMarioMsg()) && proto.sm64js.MarioMsg.toObject(includeInstance, f),
@@ -868,46 +870,51 @@ proto.sm64js.Sm64JsMsg.deserializeBinaryFromReader = function(msg, reader) {
       msg.setInitializationMsg(value);
       break;
     case 2:
+      var value = new proto.sm64js.ControllerMsg;
+      reader.readMessage(value,proto.sm64js.ControllerMsg.deserializeBinaryFromReader);
+      msg.setControllerMsg(value);
+      break;
+    case 3:
       var value = new proto.sm64js.MarioListMsg;
       reader.readMessage(value,proto.sm64js.MarioListMsg.deserializeBinaryFromReader);
       msg.setListMsg(value);
       break;
-    case 3:
+    case 4:
       var value = new proto.sm64js.PingMsg;
       reader.readMessage(value,proto.sm64js.PingMsg.deserializeBinaryFromReader);
       msg.setPingMsg(value);
       break;
-    case 4:
+    case 5:
       var value = new proto.sm64js.MarioMsg;
       reader.readMessage(value,proto.sm64js.MarioMsg.deserializeBinaryFromReader);
       msg.setMarioMsg(value);
       break;
-    case 5:
+    case 6:
       var value = new proto.sm64js.PlayerListsMsg;
       reader.readMessage(value,proto.sm64js.PlayerListsMsg.deserializeBinaryFromReader);
       msg.setPlayerListsMsg(value);
       break;
-    case 6:
+    case 7:
       var value = new proto.sm64js.AttackMsg;
       reader.readMessage(value,proto.sm64js.AttackMsg.deserializeBinaryFromReader);
       msg.setAttackMsg(value);
       break;
-    case 7:
+    case 8:
       var value = new proto.sm64js.GrabFlagMsg;
       reader.readMessage(value,proto.sm64js.GrabFlagMsg.deserializeBinaryFromReader);
       msg.setGrabMsg(value);
       break;
-    case 8:
+    case 9:
       var value = new proto.sm64js.ChatMsg;
       reader.readMessage(value,proto.sm64js.ChatMsg.deserializeBinaryFromReader);
       msg.setChatMsg(value);
       break;
-    case 9:
+    case 10:
       var value = new proto.sm64js.SkinMsg;
       reader.readMessage(value,proto.sm64js.SkinMsg.deserializeBinaryFromReader);
       msg.setSkinMsg(value);
       break;
-    case 10:
+    case 11:
       var value = new proto.sm64js.AnnouncementMsg;
       reader.readMessage(value,proto.sm64js.AnnouncementMsg.deserializeBinaryFromReader);
       msg.setAnnouncementMsg(value);
@@ -949,10 +956,18 @@ proto.sm64js.Sm64JsMsg.serializeBinaryToWriter = function(message, writer) {
       proto.sm64js.InitializationMsg.serializeBinaryToWriter
     );
   }
-  f = message.getListMsg();
+  f = message.getControllerMsg();
   if (f != null) {
     writer.writeMessage(
       2,
+      f,
+      proto.sm64js.ControllerMsg.serializeBinaryToWriter
+    );
+  }
+  f = message.getListMsg();
+  if (f != null) {
+    writer.writeMessage(
+      3,
       f,
       proto.sm64js.MarioListMsg.serializeBinaryToWriter
     );
@@ -960,7 +975,7 @@ proto.sm64js.Sm64JsMsg.serializeBinaryToWriter = function(message, writer) {
   f = message.getPingMsg();
   if (f != null) {
     writer.writeMessage(
-      3,
+      4,
       f,
       proto.sm64js.PingMsg.serializeBinaryToWriter
     );
@@ -968,7 +983,7 @@ proto.sm64js.Sm64JsMsg.serializeBinaryToWriter = function(message, writer) {
   f = message.getMarioMsg();
   if (f != null) {
     writer.writeMessage(
-      4,
+      5,
       f,
       proto.sm64js.MarioMsg.serializeBinaryToWriter
     );
@@ -976,7 +991,7 @@ proto.sm64js.Sm64JsMsg.serializeBinaryToWriter = function(message, writer) {
   f = message.getPlayerListsMsg();
   if (f != null) {
     writer.writeMessage(
-      5,
+      6,
       f,
       proto.sm64js.PlayerListsMsg.serializeBinaryToWriter
     );
@@ -984,7 +999,7 @@ proto.sm64js.Sm64JsMsg.serializeBinaryToWriter = function(message, writer) {
   f = message.getAttackMsg();
   if (f != null) {
     writer.writeMessage(
-      6,
+      7,
       f,
       proto.sm64js.AttackMsg.serializeBinaryToWriter
     );
@@ -992,7 +1007,7 @@ proto.sm64js.Sm64JsMsg.serializeBinaryToWriter = function(message, writer) {
   f = message.getGrabMsg();
   if (f != null) {
     writer.writeMessage(
-      7,
+      8,
       f,
       proto.sm64js.GrabFlagMsg.serializeBinaryToWriter
     );
@@ -1000,7 +1015,7 @@ proto.sm64js.Sm64JsMsg.serializeBinaryToWriter = function(message, writer) {
   f = message.getChatMsg();
   if (f != null) {
     writer.writeMessage(
-      8,
+      9,
       f,
       proto.sm64js.ChatMsg.serializeBinaryToWriter
     );
@@ -1008,7 +1023,7 @@ proto.sm64js.Sm64JsMsg.serializeBinaryToWriter = function(message, writer) {
   f = message.getSkinMsg();
   if (f != null) {
     writer.writeMessage(
-      9,
+      10,
       f,
       proto.sm64js.SkinMsg.serializeBinaryToWriter
     );
@@ -1016,7 +1031,7 @@ proto.sm64js.Sm64JsMsg.serializeBinaryToWriter = function(message, writer) {
   f = message.getAnnouncementMsg();
   if (f != null) {
     writer.writeMessage(
-      10,
+      11,
       f,
       proto.sm64js.AnnouncementMsg.serializeBinaryToWriter
     );
@@ -1062,12 +1077,49 @@ proto.sm64js.Sm64JsMsg.prototype.hasInitializationMsg = function() {
 
 
 /**
- * optional MarioListMsg list_msg = 2;
+ * optional ControllerMsg controller_msg = 2;
+ * @return {?proto.sm64js.ControllerMsg}
+ */
+proto.sm64js.Sm64JsMsg.prototype.getControllerMsg = function() {
+  return /** @type{?proto.sm64js.ControllerMsg} */ (
+    jspb.Message.getWrapperField(this, proto.sm64js.ControllerMsg, 2));
+};
+
+
+/**
+ * @param {?proto.sm64js.ControllerMsg|undefined} value
+ * @return {!proto.sm64js.Sm64JsMsg} returns this
+*/
+proto.sm64js.Sm64JsMsg.prototype.setControllerMsg = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 2, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.sm64js.Sm64JsMsg} returns this
+ */
+proto.sm64js.Sm64JsMsg.prototype.clearControllerMsg = function() {
+  return this.setControllerMsg(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.sm64js.Sm64JsMsg.prototype.hasControllerMsg = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional MarioListMsg list_msg = 3;
  * @return {?proto.sm64js.MarioListMsg}
  */
 proto.sm64js.Sm64JsMsg.prototype.getListMsg = function() {
   return /** @type{?proto.sm64js.MarioListMsg} */ (
-    jspb.Message.getWrapperField(this, proto.sm64js.MarioListMsg, 2));
+    jspb.Message.getWrapperField(this, proto.sm64js.MarioListMsg, 3));
 };
 
 
@@ -1076,7 +1128,7 @@ proto.sm64js.Sm64JsMsg.prototype.getListMsg = function() {
  * @return {!proto.sm64js.Sm64JsMsg} returns this
 */
 proto.sm64js.Sm64JsMsg.prototype.setListMsg = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 2, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 3, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
 };
 
 
@@ -1094,17 +1146,17 @@ proto.sm64js.Sm64JsMsg.prototype.clearListMsg = function() {
  * @return {boolean}
  */
 proto.sm64js.Sm64JsMsg.prototype.hasListMsg = function() {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 3) != null;
 };
 
 
 /**
- * optional PingMsg ping_msg = 3;
+ * optional PingMsg ping_msg = 4;
  * @return {?proto.sm64js.PingMsg}
  */
 proto.sm64js.Sm64JsMsg.prototype.getPingMsg = function() {
   return /** @type{?proto.sm64js.PingMsg} */ (
-    jspb.Message.getWrapperField(this, proto.sm64js.PingMsg, 3));
+    jspb.Message.getWrapperField(this, proto.sm64js.PingMsg, 4));
 };
 
 
@@ -1113,7 +1165,7 @@ proto.sm64js.Sm64JsMsg.prototype.getPingMsg = function() {
  * @return {!proto.sm64js.Sm64JsMsg} returns this
 */
 proto.sm64js.Sm64JsMsg.prototype.setPingMsg = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 3, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 4, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
 };
 
 
@@ -1131,17 +1183,17 @@ proto.sm64js.Sm64JsMsg.prototype.clearPingMsg = function() {
  * @return {boolean}
  */
 proto.sm64js.Sm64JsMsg.prototype.hasPingMsg = function() {
-  return jspb.Message.getField(this, 3) != null;
+  return jspb.Message.getField(this, 4) != null;
 };
 
 
 /**
- * optional MarioMsg mario_msg = 4;
+ * optional MarioMsg mario_msg = 5;
  * @return {?proto.sm64js.MarioMsg}
  */
 proto.sm64js.Sm64JsMsg.prototype.getMarioMsg = function() {
   return /** @type{?proto.sm64js.MarioMsg} */ (
-    jspb.Message.getWrapperField(this, proto.sm64js.MarioMsg, 4));
+    jspb.Message.getWrapperField(this, proto.sm64js.MarioMsg, 5));
 };
 
 
@@ -1150,7 +1202,7 @@ proto.sm64js.Sm64JsMsg.prototype.getMarioMsg = function() {
  * @return {!proto.sm64js.Sm64JsMsg} returns this
 */
 proto.sm64js.Sm64JsMsg.prototype.setMarioMsg = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 4, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 5, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
 };
 
 
@@ -1168,17 +1220,17 @@ proto.sm64js.Sm64JsMsg.prototype.clearMarioMsg = function() {
  * @return {boolean}
  */
 proto.sm64js.Sm64JsMsg.prototype.hasMarioMsg = function() {
-  return jspb.Message.getField(this, 4) != null;
+  return jspb.Message.getField(this, 5) != null;
 };
 
 
 /**
- * optional PlayerListsMsg player_lists_msg = 5;
+ * optional PlayerListsMsg player_lists_msg = 6;
  * @return {?proto.sm64js.PlayerListsMsg}
  */
 proto.sm64js.Sm64JsMsg.prototype.getPlayerListsMsg = function() {
   return /** @type{?proto.sm64js.PlayerListsMsg} */ (
-    jspb.Message.getWrapperField(this, proto.sm64js.PlayerListsMsg, 5));
+    jspb.Message.getWrapperField(this, proto.sm64js.PlayerListsMsg, 6));
 };
 
 
@@ -1187,7 +1239,7 @@ proto.sm64js.Sm64JsMsg.prototype.getPlayerListsMsg = function() {
  * @return {!proto.sm64js.Sm64JsMsg} returns this
 */
 proto.sm64js.Sm64JsMsg.prototype.setPlayerListsMsg = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 5, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 6, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
 };
 
 
@@ -1205,17 +1257,17 @@ proto.sm64js.Sm64JsMsg.prototype.clearPlayerListsMsg = function() {
  * @return {boolean}
  */
 proto.sm64js.Sm64JsMsg.prototype.hasPlayerListsMsg = function() {
-  return jspb.Message.getField(this, 5) != null;
+  return jspb.Message.getField(this, 6) != null;
 };
 
 
 /**
- * optional AttackMsg attack_msg = 6;
+ * optional AttackMsg attack_msg = 7;
  * @return {?proto.sm64js.AttackMsg}
  */
 proto.sm64js.Sm64JsMsg.prototype.getAttackMsg = function() {
   return /** @type{?proto.sm64js.AttackMsg} */ (
-    jspb.Message.getWrapperField(this, proto.sm64js.AttackMsg, 6));
+    jspb.Message.getWrapperField(this, proto.sm64js.AttackMsg, 7));
 };
 
 
@@ -1224,7 +1276,7 @@ proto.sm64js.Sm64JsMsg.prototype.getAttackMsg = function() {
  * @return {!proto.sm64js.Sm64JsMsg} returns this
 */
 proto.sm64js.Sm64JsMsg.prototype.setAttackMsg = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 6, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 7, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
 };
 
 
@@ -1242,17 +1294,17 @@ proto.sm64js.Sm64JsMsg.prototype.clearAttackMsg = function() {
  * @return {boolean}
  */
 proto.sm64js.Sm64JsMsg.prototype.hasAttackMsg = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
 /**
- * optional GrabFlagMsg grab_msg = 7;
+ * optional GrabFlagMsg grab_msg = 8;
  * @return {?proto.sm64js.GrabFlagMsg}
  */
 proto.sm64js.Sm64JsMsg.prototype.getGrabMsg = function() {
   return /** @type{?proto.sm64js.GrabFlagMsg} */ (
-    jspb.Message.getWrapperField(this, proto.sm64js.GrabFlagMsg, 7));
+    jspb.Message.getWrapperField(this, proto.sm64js.GrabFlagMsg, 8));
 };
 
 
@@ -1261,7 +1313,7 @@ proto.sm64js.Sm64JsMsg.prototype.getGrabMsg = function() {
  * @return {!proto.sm64js.Sm64JsMsg} returns this
 */
 proto.sm64js.Sm64JsMsg.prototype.setGrabMsg = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 7, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 8, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
 };
 
 
@@ -1279,17 +1331,17 @@ proto.sm64js.Sm64JsMsg.prototype.clearGrabMsg = function() {
  * @return {boolean}
  */
 proto.sm64js.Sm64JsMsg.prototype.hasGrabMsg = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
 /**
- * optional ChatMsg chat_msg = 8;
+ * optional ChatMsg chat_msg = 9;
  * @return {?proto.sm64js.ChatMsg}
  */
 proto.sm64js.Sm64JsMsg.prototype.getChatMsg = function() {
   return /** @type{?proto.sm64js.ChatMsg} */ (
-    jspb.Message.getWrapperField(this, proto.sm64js.ChatMsg, 8));
+    jspb.Message.getWrapperField(this, proto.sm64js.ChatMsg, 9));
 };
 
 
@@ -1298,7 +1350,7 @@ proto.sm64js.Sm64JsMsg.prototype.getChatMsg = function() {
  * @return {!proto.sm64js.Sm64JsMsg} returns this
 */
 proto.sm64js.Sm64JsMsg.prototype.setChatMsg = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 8, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 9, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
 };
 
 
@@ -1316,17 +1368,17 @@ proto.sm64js.Sm64JsMsg.prototype.clearChatMsg = function() {
  * @return {boolean}
  */
 proto.sm64js.Sm64JsMsg.prototype.hasChatMsg = function() {
-  return jspb.Message.getField(this, 8) != null;
+  return jspb.Message.getField(this, 9) != null;
 };
 
 
 /**
- * optional SkinMsg skin_msg = 9;
+ * optional SkinMsg skin_msg = 10;
  * @return {?proto.sm64js.SkinMsg}
  */
 proto.sm64js.Sm64JsMsg.prototype.getSkinMsg = function() {
   return /** @type{?proto.sm64js.SkinMsg} */ (
-    jspb.Message.getWrapperField(this, proto.sm64js.SkinMsg, 9));
+    jspb.Message.getWrapperField(this, proto.sm64js.SkinMsg, 10));
 };
 
 
@@ -1335,7 +1387,7 @@ proto.sm64js.Sm64JsMsg.prototype.getSkinMsg = function() {
  * @return {!proto.sm64js.Sm64JsMsg} returns this
 */
 proto.sm64js.Sm64JsMsg.prototype.setSkinMsg = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 9, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 10, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
 };
 
 
@@ -1353,17 +1405,17 @@ proto.sm64js.Sm64JsMsg.prototype.clearSkinMsg = function() {
  * @return {boolean}
  */
 proto.sm64js.Sm64JsMsg.prototype.hasSkinMsg = function() {
-  return jspb.Message.getField(this, 9) != null;
+  return jspb.Message.getField(this, 10) != null;
 };
 
 
 /**
- * optional AnnouncementMsg announcement_msg = 10;
+ * optional AnnouncementMsg announcement_msg = 11;
  * @return {?proto.sm64js.AnnouncementMsg}
  */
 proto.sm64js.Sm64JsMsg.prototype.getAnnouncementMsg = function() {
   return /** @type{?proto.sm64js.AnnouncementMsg} */ (
-    jspb.Message.getWrapperField(this, proto.sm64js.AnnouncementMsg, 10));
+    jspb.Message.getWrapperField(this, proto.sm64js.AnnouncementMsg, 11));
 };
 
 
@@ -1372,7 +1424,7 @@ proto.sm64js.Sm64JsMsg.prototype.getAnnouncementMsg = function() {
  * @return {!proto.sm64js.Sm64JsMsg} returns this
 */
 proto.sm64js.Sm64JsMsg.prototype.setAnnouncementMsg = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 10, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 11, proto.sm64js.Sm64JsMsg.oneofGroups_[0], value);
 };
 
 
@@ -1390,7 +1442,7 @@ proto.sm64js.Sm64JsMsg.prototype.clearAnnouncementMsg = function() {
  * @return {boolean}
  */
 proto.sm64js.Sm64JsMsg.prototype.hasAnnouncementMsg = function() {
-  return jspb.Message.getField(this, 10) != null;
+  return jspb.Message.getField(this, 11) != null;
 };
 
 
@@ -4493,9 +4545,10 @@ proto.sm64js.ControllerMsg.toObject = function(includeInstance, msg) {
     sticky: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
     stickmag: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
     buttondown: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    taunt: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    camerayaw: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    socketid: jspb.Message.getFieldWithDefault(msg, 7, 0)
+    buttonpressed: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    taunt: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    camerayaw: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    socketid: jspb.Message.getFieldWithDefault(msg, 8, 0)
   };
 
   if (includeInstance) {
@@ -4550,13 +4603,17 @@ proto.sm64js.ControllerMsg.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 5:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setTaunt(value);
+      msg.setButtonpressed(value);
       break;
     case 6:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setTaunt(value);
+      break;
+    case 7:
       var value = /** @type {number} */ (reader.readSint32());
       msg.setCamerayaw(value);
       break;
-    case 7:
+    case 8:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setSocketid(value);
       break;
@@ -4617,24 +4674,31 @@ proto.sm64js.ControllerMsg.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getTaunt();
+  f = message.getButtonpressed();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
+  f = message.getTaunt();
+  if (f !== 0) {
+    writer.writeUint32(
+      6,
+      f
+    );
+  }
   f = message.getCamerayaw();
   if (f !== 0) {
     writer.writeSint32(
-      6,
+      7,
       f
     );
   }
   f = message.getSocketid();
   if (f !== 0) {
     writer.writeUint32(
-      7,
+      8,
       f
     );
   }
@@ -4714,10 +4778,10 @@ proto.sm64js.ControllerMsg.prototype.setButtondown = function(value) {
 
 
 /**
- * optional uint32 taunt = 5;
+ * optional uint32 buttonPressed = 5;
  * @return {number}
  */
-proto.sm64js.ControllerMsg.prototype.getTaunt = function() {
+proto.sm64js.ControllerMsg.prototype.getButtonpressed = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
@@ -4726,16 +4790,16 @@ proto.sm64js.ControllerMsg.prototype.getTaunt = function() {
  * @param {number} value
  * @return {!proto.sm64js.ControllerMsg} returns this
  */
-proto.sm64js.ControllerMsg.prototype.setTaunt = function(value) {
+proto.sm64js.ControllerMsg.prototype.setButtonpressed = function(value) {
   return jspb.Message.setProto3IntField(this, 5, value);
 };
 
 
 /**
- * optional sint32 cameraYaw = 6;
+ * optional uint32 taunt = 6;
  * @return {number}
  */
-proto.sm64js.ControllerMsg.prototype.getCamerayaw = function() {
+proto.sm64js.ControllerMsg.prototype.getTaunt = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
@@ -4744,16 +4808,16 @@ proto.sm64js.ControllerMsg.prototype.getCamerayaw = function() {
  * @param {number} value
  * @return {!proto.sm64js.ControllerMsg} returns this
  */
-proto.sm64js.ControllerMsg.prototype.setCamerayaw = function(value) {
+proto.sm64js.ControllerMsg.prototype.setTaunt = function(value) {
   return jspb.Message.setProto3IntField(this, 6, value);
 };
 
 
 /**
- * optional uint32 socketID = 7;
+ * optional sint32 cameraYaw = 7;
  * @return {number}
  */
-proto.sm64js.ControllerMsg.prototype.getSocketid = function() {
+proto.sm64js.ControllerMsg.prototype.getCamerayaw = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
@@ -4762,8 +4826,26 @@ proto.sm64js.ControllerMsg.prototype.getSocketid = function() {
  * @param {number} value
  * @return {!proto.sm64js.ControllerMsg} returns this
  */
-proto.sm64js.ControllerMsg.prototype.setSocketid = function(value) {
+proto.sm64js.ControllerMsg.prototype.setCamerayaw = function(value) {
   return jspb.Message.setProto3IntField(this, 7, value);
+};
+
+
+/**
+ * optional uint32 socketID = 8;
+ * @return {number}
+ */
+proto.sm64js.ControllerMsg.prototype.getSocketid = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.sm64js.ControllerMsg} returns this
+ */
+proto.sm64js.ControllerMsg.prototype.setSocketid = function(value) {
+  return jspb.Message.setProto3IntField(this, 8, value);
 };
 
 
