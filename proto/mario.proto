@@ -90,25 +90,22 @@ message AttackMsg {
 
 message MarioMsg {
 	ControllerMsg controller = 1;
-	uint32 action = 3;
-	uint32 prevAction = 4;
-	uint32 actionState = 5;
-	uint32 actionTimer = 6;
-	uint32 actionArg = 7;
-	sint32 invincTimer = 8;
-	uint32 framesSinceA = 9;
-	uint32 framesSinceB = 10;
-	uint32 wallKickTimer = 11;
-	uint32 doubleJumpTimer = 12;
-	repeated sint32 faceAngle = 13;
-	repeated sint32 angleVel = 14;
-	repeated float pos = 15;
-	repeated float vel = 16;
-	float forwardVel = 17;
-	repeated sint32 rawData = 18;
-	uint32 usedObjID = 19;
-	uint32 socketID = 20;
-	bool parachuting = 21;
+	uint32 action = 2;
+	uint32 prevAction = 3;
+	uint32 actionState = 4;
+	uint32 actionTimer = 5;
+	uint32 actionArg = 6;
+	sint32 invincTimer = 7;
+	uint32 wallKickTimer = 8;
+	uint32 doubleJumpTimer = 9;
+	repeated sint32 faceAngle = 10;
+	repeated sint32 angleVel = 11;
+	repeated float pos = 12;
+	repeated float vel = 13;
+	float forwardVel = 14;
+	repeated sint32 rawData = 15;
+	uint32 usedObjID = 16;
+	uint32 socketID = 17;
 }
 
 message ControllerMsg {
