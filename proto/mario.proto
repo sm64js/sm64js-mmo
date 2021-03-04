@@ -21,6 +21,7 @@ message Sm64JsMsg {
 		ChatMsg chat_msg = 9;
 		SkinMsg skin_msg = 10;
 		AnnouncementMsg announcement_msg = 11;  // TODO merge into ChatMsg
+		InitNewMarioStateMsg init_new_mario_state_msg = 12;
 	}
 }
 
@@ -62,6 +63,10 @@ message InitGameDataMsg {
 	uint32 level = 2;
 	bool accepted = 3;
 	uint32 socket_id = 4;
+}
+
+message InitNewMarioStateMsg {
+	uint32 socket_id = 1;
 }
 
 message RequestCosmeticsMsg {}
