@@ -12,7 +12,7 @@ message Sm64JsMsg {
 	oneof message {
 		InitializationMsg initialization_msg = 1;
 		ControllerMsg controller_msg = 2;
-		MarioListMsg list_msg = 3;
+		GameDataMsg game_data_msg = 3;
 		PingMsg ping_msg = 4;
 		MarioMsg mario_msg = 5;
 		PlayerListsMsg player_lists_msg = 6;
@@ -25,9 +25,18 @@ message Sm64JsMsg {
 	}
 }
 
-message MarioListMsg {
+message GameDataMsg {
 	repeated FlagMsg flag = 1;
 	repeated MarioMsg mario = 2;
+	repeated ObjectMsg object = 3;
+}
+
+message ObjectMsg {
+	uint32 type = 1; ///dictates what indexes of rawData to copy
+	uint32 id = 2;
+	uint32 attacker_id = 3;
+	repeated sint32 shared_fields = 4;
+	repeated sint32 unique_fields = 5; // depends on the object Type
 }
 
 message InitializationMsg {
