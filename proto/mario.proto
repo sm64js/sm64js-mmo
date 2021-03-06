@@ -151,7 +151,8 @@ message SkinData {
 	SkinValue boots = 5;
 	SkinValue skin = 6;
 	SkinValue hair = 7;
-	uint32 customCapState = 8;
+	SkinValue parachute = 8;
+	uint32 customCapState = 9;
 }
 
 message SkinValue {
