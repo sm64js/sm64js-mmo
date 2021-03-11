@@ -59,25 +59,27 @@ jobs:
 
   publish-server:
     needs: prepare
-    if: ${{ needs.prepare.outputs.publish-server }}
     runs-on: ubuntu-latest
     outputs:
       success: ${{ steps.set-output.outputs.success }}
     steps:
       - uses: actions/checkout@v2
         name: Checkout
+        if: ${{ needs.prepare.outputs.publish-server }}
         env:
           FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
         with:
           fetch-depth: $FETCH_DEPTH
 
       - name: Checkout submodule
+        if: ${{ needs.prepare.outputs.publish-server }}
         env:
           FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
         run: |
           git submodule update --init --depth $FETCH_DEPTH -- server
 
       - uses: actions/cache@v2
+        if: ${{ needs.prepare.outputs.publish-server }}
         with:
           path: |
             ~/.cargo/registry
@@ -86,6 +88,7 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Deploy to Docker Hub
+        if: ${{ needs.prepare.outputs.publish-server }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -100,25 +103,27 @@ jobs:
 
   publish-client:
     needs: prepare
-    if: ${{ needs.prepare.outputs.publish-client }}
     runs-on: ubuntu-latest
     outputs:
       success: ${{ steps.set-output.outputs.success }}
     steps:
       - uses: actions/checkout@v2
         name: Checkout
+        if: ${{ needs.prepare.outputs.publish-client }}
         env:
           FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
         with:
           fetch-depth: $FETCH_DEPTH
 
       - name: Checkout submodule
+        if: ${{ needs.prepare.outputs.publish-client }}
         env:
           FETCH_DEPTH: ${{ needs.prepare.outputs.fetch-depth }}
         run: |
           git submodule update --init --depth $FETCH_DEPTH -- client
 
       - name: Deploy to Docker Hub
+        if: ${{ needs.prepare.outputs.publish-client }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
