@@ -7,6 +7,7 @@ RUN set -eux; \
     openssl \
     libssl-dev \
     iproute2 \
+    libpq-dev \
     ; \
     \
     rm -rf /var/lib/apt/lists/*;
