@@ -141,6 +141,7 @@ message SkinMsg {
 	uint32 socketID = 1;
 	SkinData skinData = 2;
 	string playerName = 3;
+	uint32 num_coins = 4;
 }
 
 message SkinData {
