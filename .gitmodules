@@ -14,3 +14,6 @@
 	path = adminPanel
 	url = https://github.com/sm64js/sm64js-admin.git
 	branch = main
+[submodule "proto"]
+	path = proto
+	url = https://github.com/sm64js/sm64js-mmo-proto.git
