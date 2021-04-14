@@ -5397,7 +5397,8 @@ proto.sm64js.SkinMsg.toObject = function(includeInstance, msg) {
   var f, obj = {
     socketid: jspb.Message.getFieldWithDefault(msg, 1, 0),
     skindata: (f = msg.getSkindata()) && proto.sm64js.SkinData.toObject(includeInstance, f),
-    playername: jspb.Message.getFieldWithDefault(msg, 3, "")
+    playername: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    numCoins: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -5447,6 +5448,10 @@ proto.sm64js.SkinMsg.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setPlayername(value);
       break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setNumCoins(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -5495,6 +5500,13 @@ proto.sm64js.SkinMsg.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getNumCoins();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
       f
     );
   }
@@ -5574,6 +5586,24 @@ proto.sm64js.SkinMsg.prototype.setPlayername = function(value) {
 };
 
 
+/**
+ * optional uint32 num_coins = 4;
+ * @return {number}
+ */
+proto.sm64js.SkinMsg.prototype.getNumCoins = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.sm64js.SkinMsg} returns this
+ */
+proto.sm64js.SkinMsg.prototype.setNumCoins = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
 
 
 
@@ -5613,7 +5643,8 @@ proto.sm64js.SkinData.toObject = function(includeInstance, msg) {
     boots: (f = msg.getBoots()) && proto.sm64js.SkinValue.toObject(includeInstance, f),
     skin: (f = msg.getSkin()) && proto.sm64js.SkinValue.toObject(includeInstance, f),
     hair: (f = msg.getHair()) && proto.sm64js.SkinValue.toObject(includeInstance, f),
-    customcapstate: jspb.Message.getFieldWithDefault(msg, 8, 0)
+    parachute: (f = msg.getParachute()) && proto.sm64js.SkinValue.toObject(includeInstance, f),
+    customcapstate: jspb.Message.getFieldWithDefault(msg, 9, 0)
   };
 
   if (includeInstance) {
@@ -5686,6 +5717,11 @@ proto.sm64js.SkinData.deserializeBinaryFromReader = function(msg, reader) {
       msg.setHair(value);
       break;
     case 8:
+      var value = new proto.sm64js.SkinValue;
+      reader.readMessage(value,proto.sm64js.SkinValue.deserializeBinaryFromReader);
+      msg.setParachute(value);
+      break;
+    case 9:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setCustomcapstate(value);
       break;
@@ -5774,10 +5810,18 @@ proto.sm64js.SkinData.serializeBinaryToWriter = function(message, writer) {
       proto.sm64js.SkinValue.serializeBinaryToWriter
     );
   }
+  f = message.getParachute();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      proto.sm64js.SkinValue.serializeBinaryToWriter
+    );
+  }
   f = message.getCustomcapstate();
   if (f !== 0) {
     writer.writeUint32(
-      8,
+      9,
       f
     );
   }
@@ -6044,11 +6088,48 @@ proto.sm64js.SkinData.prototype.hasHair = function() {
 
 
 /**
- * optional uint32 customCapState = 8;
+ * optional SkinValue parachute = 8;
+ * @return {?proto.sm64js.SkinValue}
+ */
+proto.sm64js.SkinData.prototype.getParachute = function() {
+  return /** @type{?proto.sm64js.SkinValue} */ (
+    jspb.Message.getWrapperField(this, proto.sm64js.SkinValue, 8));
+};
+
+
+/**
+ * @param {?proto.sm64js.SkinValue|undefined} value
+ * @return {!proto.sm64js.SkinData} returns this
+*/
+proto.sm64js.SkinData.prototype.setParachute = function(value) {
+  return jspb.Message.setWrapperField(this, 8, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.sm64js.SkinData} returns this
+ */
+proto.sm64js.SkinData.prototype.clearParachute = function() {
+  return this.setParachute(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.sm64js.SkinData.prototype.hasParachute = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
+/**
+ * optional uint32 customCapState = 9;
  * @return {number}
  */
 proto.sm64js.SkinData.prototype.getCustomcapstate = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
 };
 
 
@@ -6057,7 +6138,7 @@ proto.sm64js.SkinData.prototype.getCustomcapstate = function() {
  * @return {!proto.sm64js.SkinData} returns this
  */
 proto.sm64js.SkinData.prototype.setCustomcapstate = function(value) {
-  return jspb.Message.setProto3IntField(this, 8, value);
+  return jspb.Message.setProto3IntField(this, 9, value);
 };
 
 
