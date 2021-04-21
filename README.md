@@ -1,15 +1,5 @@
-# sm64js-mmo
-Super Repository for sm64js mmo server and client files
+**DEPRECATED**
 
-## Init Submodules
-`npm run updateModules`
+Please use https://github.com/sm64js/sm64js-mmo-server
 
-## Install node packages for submodules
-`npm run installAll`  
-
-## Start Client and Server
-`npm run startDevSuite`
-
-## Other
-### Checkout submodules 
-`npm run checkoutModules`
+**DEPRECATED**
